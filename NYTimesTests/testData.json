@@ -1,0 +1,776 @@
+{
+  "response": {
+    "meta": {
+      "hits": 44638,
+      "time": 14,
+      "offset": 0
+    },
+    "docs": [
+      {
+        "web_url": "https://www.nytimes.com/2017/04/04/world/asia/here-lies-a-graveyard-where-east-and-west-came-together.html",
+        "snippet": "Bukit Brown, one of the world’s largest Chinese cemeteries, is at the center of a preservation effort in modernization-mad Singapore....",
+        "lead_paragraph": "Bukit Brown, one of the world’s largest Chinese cemeteries, is at the center of a preservation effort in modernization-mad Singapore.",
+        "abstract": null,
+        "print_page": 7,
+        "blog": [],
+        "source": "The New York Times",
+        "multimedia": [
+          {
+            "width": 75,
+            "url": "images/2017/04/01/world/03singapore-1/03singapore-1-thumbStandard.jpg",
+            "rank": 0,
+            "height": 75,
+            "subtype": "thumbnail",
+            "legacy": {
+              "thumbnailheight": 75,
+              "thumbnail": "images/2017/04/01/world/03singapore-1/03singapore-1-thumbStandard.jpg",
+              "thumbnailwidth": 75
+            },
+            "type": "image"
+          },
+          {
+            "width": 600,
+            "url": "images/2017/04/01/world/03singapore-1/03singapore-1-articleLarge.jpg",
+            "rank": 0,
+            "height": 400,
+            "subtype": "xlarge",
+            "legacy": {
+              "xlargewidth": 600,
+              "xlarge": "images/2017/04/01/world/03singapore-1/03singapore-1-articleLarge.jpg",
+              "xlargeheight": 400
+            },
+            "type": "image"
+          },
+          {
+            "width": 190,
+            "url": "images/2017/04/01/world/03singapore-1/03singapore-1-thumbWide.jpg",
+            "rank": 0,
+            "height": 126,
+            "subtype": "wide",
+            "legacy": {
+              "wide": "images/2017/04/01/world/03singapore-1/03singapore-1-thumbWide.jpg",
+              "widewidth": 190,
+              "wideheight": 126
+            },
+            "type": "image"
+          }
+        ],
+        "headline": {
+          "main": "Here Lies a Graveyard Where ‘East and West Came Together’",
+          "kicker": "Singapore Journal",
+          "print_headline": "Here Lies a Graveyard Where East and West Met",
+          "content_kicker": "Singapore Journal"
+        },
+        "keywords": [
+          {
+            "isMajor": "N",
+            "rank": 1,
+            "name": "subject",
+            "value": "Cemeteries"
+          },
+          {
+            "isMajor": "N",
+            "rank": 2,
+            "name": "subject",
+            "value": "Tombs and Tombstones"
+          },
+          {
+            "isMajor": "N",
+            "rank": 3,
+            "name": "subject",
+            "value": "Land Use Policies"
+          },
+          {
+            "isMajor": "N",
+            "rank": 4,
+            "name": "subject",
+            "value": "Historic Buildings and Sites"
+          },
+          {
+            "isMajor": "N",
+            "rank": 5,
+            "name": "glocations",
+            "value": "Singapore"
+          }
+        ],
+        "pub_date": "2017-04-04T14:55:49+0000",
+        "document_type": "article",
+        "news_desk": "Foreign",
+        "section_name": "World",
+        "subsection_name": "Asia Pacific",
+        "byline": {
+          "person": [
+            {
+              "organization": "",
+              "role": "reported",
+              "rank": 1,
+              "firstname": "Ian",
+              "lastname": "JOHNSON"
+            }
+          ],
+          "original": "By IAN JOHNSON"
+        },
+        "type_of_material": "News",
+        "_id": "58e3b4007c459f24986d849e",
+        "word_count": 1277,
+        "slideshow_credits": null
+      },
+      {
+        "web_url": "https://www.nytimes.com/2017/03/18/opinion/sunday/make-america-singapore.html",
+        "snippet": "The best Obamacare alternative might be found in Southeast Asia, not the House....",
+        "lead_paragraph": "The best Obamacare alternative might be found in Southeast Asia, not the House.",
+        "abstract": null,
+        "print_page": 11,
+        "blog": [],
+        "source": "The New York Times",
+        "multimedia": [
+          {
+            "width": 75,
+            "url": "images/2017/03/19/sunday-review/19Douthat/19Douthat-thumbStandard.jpg",
+            "rank": 0,
+            "height": 75,
+            "subtype": "thumbnail",
+            "legacy": {
+              "thumbnailheight": 75,
+              "thumbnail": "images/2017/03/19/sunday-review/19Douthat/19Douthat-thumbStandard.jpg",
+              "thumbnailwidth": 75
+            },
+            "type": "image"
+          },
+          {
+            "width": 600,
+            "url": "images/2017/03/19/sunday-review/19Douthat/19Douthat-articleLarge.jpg",
+            "rank": 0,
+            "height": 400,
+            "subtype": "xlarge",
+            "legacy": {
+              "xlargewidth": 600,
+              "xlarge": "images/2017/03/19/sunday-review/19Douthat/19Douthat-articleLarge.jpg",
+              "xlargeheight": 400
+            },
+            "type": "image"
+          },
+          {
+            "width": 190,
+            "url": "images/2017/03/19/sunday-review/19Douthat/19Douthat-thumbWide.jpg",
+            "rank": 0,
+            "height": 126,
+            "subtype": "wide",
+            "legacy": {
+              "wide": "images/2017/03/19/sunday-review/19Douthat/19Douthat-thumbWide.jpg",
+              "widewidth": 190,
+              "wideheight": 126
+            },
+            "type": "image"
+          }
+        ],
+        "headline": {
+          "main": "Make America Singapore",
+          "kicker": "Op-Ed Columnist",
+          "print_headline": "Make America Singapore",
+          "content_kicker": "Op-Ed Columnist"
+        },
+        "keywords": [
+          {
+            "isMajor": "N",
+            "rank": 1,
+            "name": "subject",
+            "value": "Health Insurance and Managed Care"
+          },
+          {
+            "isMajor": "N",
+            "rank": 2,
+            "name": "subject",
+            "value": "United States Politics and Government"
+          },
+          {
+            "isMajor": "N",
+            "rank": 3,
+            "name": "subject",
+            "value": "Conservatism (US Politics)"
+          },
+          {
+            "isMajor": "N",
+            "rank": 4,
+            "name": "organizations",
+            "value": "Republican Party"
+          },
+          {
+            "isMajor": "N",
+            "rank": 5,
+            "name": "glocations",
+            "value": "Singapore"
+          }
+        ],
+        "pub_date": "2017-03-18T18:30:24+0000",
+        "document_type": "article",
+        "news_desk": "OpEd",
+        "section_name": "Opinion",
+        "subsection_name": "Sunday Review",
+        "byline": {
+          "person": [
+            {
+              "organization": "",
+              "role": "reported",
+              "rank": 1,
+              "firstname": "Ross",
+              "lastname": "DOUTHAT"
+            }
+          ],
+          "original": "By ROSS DOUTHAT"
+        },
+        "type_of_material": "Op-Ed",
+        "_id": "58cd7cc97c459f247805ca09",
+        "word_count": 831,
+        "slideshow_credits": null
+      },
+      {
+        "web_url": "https://www.nytimes.com/2017/03/02/movies/apprentice-review.html",
+        "snippet": "In this film from Singapore, the chief executioner at a high-security prison takes on a new assistant....",
+        "lead_paragraph": "In this film from Singapore, the chief executioner at a high-security prison takes on a new assistant.",
+        "abstract": null,
+        "print_page": 5,
+        "blog": [],
+        "source": "The New York Times",
+        "multimedia": [
+          {
+            "width": 75,
+            "url": "images/2017/03/03/arts/03APPRENTICE/03APPRENTICE-thumbStandard-v2.jpg",
+            "rank": 0,
+            "height": 75,
+            "subtype": "thumbnail",
+            "legacy": {
+              "thumbnailheight": 75,
+              "thumbnail": "images/2017/03/03/arts/03APPRENTICE/03APPRENTICE-thumbStandard-v2.jpg",
+              "thumbnailwidth": 75
+            },
+            "type": "image"
+          },
+          {
+            "width": 600,
+            "url": "images/2017/03/03/arts/03APPRENTICE/03APPRENTICE-articleLarge.jpg",
+            "rank": 0,
+            "height": 368,
+            "subtype": "xlarge",
+            "legacy": {
+              "xlargewidth": 600,
+              "xlarge": "images/2017/03/03/arts/03APPRENTICE/03APPRENTICE-articleLarge.jpg",
+              "xlargeheight": 368
+            },
+            "type": "image"
+          },
+          {
+            "width": 190,
+            "url": "images/2017/03/03/arts/03APPRENTICE/03APPRENTICE-thumbWide-v2.jpg",
+            "rank": 0,
+            "height": 126,
+            "subtype": "wide",
+            "legacy": {
+              "wide": "images/2017/03/03/arts/03APPRENTICE/03APPRENTICE-thumbWide-v2.jpg",
+              "widewidth": 190,
+              "wideheight": 126
+            },
+            "type": "image"
+          }
+        ],
+        "headline": {
+          "main": "Review: In ‘Apprentice,’ Teaching the Fine Art of Execution",
+          "print_headline": "Playing Hangman, in a Penitentiary"
+        },
+        "keywords": [
+          {
+            "isMajor": "N",
+            "rank": 1,
+            "name": "creative_works",
+            "value": "Apprentice (Movie)"
+          },
+          {
+            "isMajor": "N",
+            "rank": 2,
+            "name": "subject",
+            "value": "Movies"
+          },
+          {
+            "isMajor": "N",
+            "rank": 3,
+            "name": "glocations",
+            "value": "Singapore"
+          },
+          {
+            "isMajor": "N",
+            "rank": 4,
+            "name": "persons",
+            "value": "Boo Junfeng"
+          }
+        ],
+        "pub_date": "2017-03-02T22:38:53+0000",
+        "document_type": "article",
+        "news_desk": "Weekend",
+        "section_name": "Movies",
+        "subsection_name": null,
+        "byline": {
+          "person": [
+            {
+              "organization": "",
+              "role": "reported",
+              "rank": 1,
+              "firstname": "Stephen",
+              "lastname": "HOLDEN"
+            }
+          ],
+          "original": "By STEPHEN HOLDEN"
+        },
+        "type_of_material": "Review",
+        "_id": "58b89f077c459f2525d1f885",
+        "word_count": 341,
+        "slideshow_credits": null
+      },
+      {
+        "web_url": "https://www.nytimes.com/2017/03/03/sports/wie-takes-the-early-lead-in-singapore.html",
+        "snippet": "Michelle Wie had six birdies in a 10-hole stretch to take a one-stroke lead at the HSBC Women’s Champions....",
+        "lead_paragraph": "Michelle Wie had six birdies in a 10-hole stretch to take a one-stroke lead at the HSBC Women’s Champions.",
+        "abstract": null,
+        "print_page": 8,
+        "blog": [],
+        "source": "The New York Times",
+        "multimedia": [],
+        "headline": {
+          "main": "Wie Takes the Early Lead in Singapore",
+          "print_headline": "Golf; Wie Takes Early Lead in Singapore"
+        },
+        "keywords": [
+          {
+            "isMajor": "N",
+            "rank": 1,
+            "name": "subject",
+            "value": "Golf"
+          },
+          {
+            "isMajor": "N",
+            "rank": 2,
+            "name": "persons",
+            "value": "Wie, Michelle"
+          },
+          {
+            "isMajor": "N",
+            "rank": 3,
+            "name": "glocations",
+            "value": "Singapore"
+          },
+          {
+            "isMajor": "N",
+            "rank": 4,
+            "name": "subject",
+            "value": "Basketball"
+          },
+          {
+            "isMajor": "N",
+            "rank": 5,
+            "name": "organizations",
+            "value": "Chicago Bulls"
+          },
+          {
+            "isMajor": "N",
+            "rank": 6,
+            "name": "organizations",
+            "value": "Golden State Warriors"
+          },
+          {
+            "isMajor": "N",
+            "rank": 7,
+            "name": "persons",
+            "value": "Butler, Jimmy"
+          },
+          {
+            "isMajor": "N",
+            "rank": 8,
+            "name": "subject",
+            "value": "Basketball (College)"
+          },
+          {
+            "isMajor": "N",
+            "rank": 9,
+            "name": "organizations",
+            "value": "Southern Methodist University"
+          },
+          {
+            "isMajor": "N",
+            "rank": 10,
+            "name": "subject",
+            "value": "Hockey, Ice"
+          },
+          {
+            "isMajor": "N",
+            "rank": 11,
+            "name": "organizations",
+            "value": "New York Islanders"
+          },
+          {
+            "isMajor": "N",
+            "rank": 12,
+            "name": "persons",
+            "value": "Strome, Ryan (1993- )"
+          },
+          {
+            "isMajor": "N",
+            "rank": 13,
+            "name": "subject",
+            "value": "Cycling, Track"
+          },
+          {
+            "isMajor": "N",
+            "rank": 14,
+            "name": "subject",
+            "value": "Tennis"
+          },
+          {
+            "isMajor": "N",
+            "rank": 15,
+            "name": "persons",
+            "value": "Murray, Andy (1951- )"
+          }
+        ],
+        "pub_date": "2017-03-03T05:00:51+0000",
+        "document_type": "article",
+        "news_desk": "Sports",
+        "section_name": "Sports",
+        "subsection_name": null,
+        "byline": {
+          "person": [],
+          "original": "By THE ASSOCIATED PRESS",
+          "organization": "THE ASSOCIATED PRESS"
+        },
+        "type_of_material": "News",
+        "_id": "58b8f8897c459f2525d1f932",
+        "word_count": 439,
+        "slideshow_credits": null
+      },
+      {
+        "web_url": "https://travel.nytimes.com/travel/guides/asia/singapore/overview.html",
+        "snippet": "Articles, photos and video about Singapore from The New York Times, including hotel, restaurant and attraction information with reader reviews and advice on where to stay, where to eat and what to do....",
+        "lead_paragraph": "Articles, photos and video about Singapore from The New York Times, including hotel, restaurant and attraction information with reader reviews and advice on where to stay, where to eat and what to do.",
+        "abstract": null,
+        "print_page": null,
+        "blog": [],
+        "source": null,
+        "multimedia": [],
+        "headline": {
+          "main": "Singapore"
+        },
+        "keywords": [],
+        "pub_date": null,
+        "document_type": "topic",
+        "news_desk": null,
+        "section_name": null,
+        "subsection_name": null,
+        "byline": null,
+        "type_of_material": "traveltopic",
+        "_id": "5274120538f0d861d9d158aa",
+        "word_count": "33",
+        "slideshow_credits": null
+      },
+      {
+        "web_url": "https://topics.nytimes.com/top/news/international/countriesandterritories/singapore/index.html",
+        "snippet": "News about Singapore, including commentary and archival articles published in The New York Times....",
+        "lead_paragraph": "News about Singapore, including commentary and archival articles published in The New York Times.",
+        "abstract": null,
+        "print_page": null,
+        "blog": [],
+        "source": null,
+        "multimedia": [],
+        "headline": {
+          "main": "Singapore"
+        },
+        "keywords": [],
+        "pub_date": null,
+        "document_type": "topic",
+        "news_desk": null,
+        "section_name": "World",
+        "subsection_name": null,
+        "byline": null,
+        "type_of_material": "timestopic",
+        "_id": "527ab32338f0d86606631aaf",
+        "word_count": "14",
+        "slideshow_credits": null
+      },
+      {
+        "web_url": "https://www.nytimes.com/travel/guides/asia/singapore/overview.html",
+        "snippet": "Articles, photos and video about Singapore from The New York Times, including hotel, restaurant and attraction information with reader reviews and advice on where to stay, where to eat and what to do....",
+        "lead_paragraph": "Articles, photos and video about Singapore from The New York Times, including hotel, restaurant and attraction information with reader reviews and advice on where to stay, where to eat and what to do.",
+        "abstract": null,
+        "print_page": null,
+        "blog": [],
+        "source": null,
+        "multimedia": [],
+        "headline": {
+          "main": "Singapore"
+        },
+        "keywords": [],
+        "pub_date": null,
+        "document_type": "topic",
+        "news_desk": null,
+        "section_name": null,
+        "subsection_name": null,
+        "byline": null,
+        "type_of_material": "traveltopic",
+        "_id": "52bd90ee38f0d8377a7ad755",
+        "word_count": "33",
+        "slideshow_credits": null
+      },
+      {
+        "web_url": "https://www.nytimes.com/2008/03/14/world/asia/14singapore.html",
+        "snippet": "Singapore’s government has put the entire country on alert after a man believed to be the leader of a terrorist group escaped from prison....",
+        "lead_paragraph": "Singapore’s government has put the entire country on alert after a man believed to be the leader of a terrorist group escaped from prison.",
+        "abstract": null,
+        "print_page": "1",
+        "blog": [],
+        "source": "The New York Times",
+        "multimedia": [
+          {
+            "subtype": "thumbnail",
+            "url": "images/2008/03/14/world/14singapore_75.jpg",
+            "height": 75,
+            "width": 75,
+            "legacy": {
+              "thumbnailheight": "75",
+              "thumbnail": "images/2008/03/14/world/14singapore_75.jpg",
+              "thumbnailwidth": "75"
+            },
+            "type": "image"
+          }
+        ],
+        "headline": {
+          "main": "Terror Suspect Eludes Posse of 4 Million",
+          "kicker": "Singapore Journal",
+          "print_headline": "Terror Suspect Eludes Posse Of 4 Million",
+          "content_kicker": "Singapore Journal"
+        },
+        "keywords": [
+          {
+            "value": "Prison Escapes",
+            "is_major": "N",
+            "rank": "1",
+            "name": "subject"
+          },
+          {
+            "value": "Singapore",
+            "is_major": "N",
+            "rank": "2",
+            "name": "glocations"
+          },
+          {
+            "value": "Jemaah Islamiyah",
+            "is_major": "N",
+            "rank": "4",
+            "name": "organizations"
+          }
+        ],
+        "pub_date": "2008-03-14T00:00:00Z",
+        "document_type": "article",
+        "news_desk": "Foreign",
+        "section_name": "World",
+        "subsection_name": "Asia Pacific",
+        "byline": {
+          "person": [
+            {
+              "organization": "",
+              "role": "reported",
+              "rank": 1,
+              "firstname": "Seth",
+              "lastname": "MYDANS"
+            }
+          ],
+          "original": "By SETH MYDANS"
+        },
+        "type_of_material": "News",
+        "_id": "546a5c0138f0d84ca2c5c23a",
+        "word_count": "1204",
+        "slideshow_credits": null
+      },
+      {
+        "web_url": "https://www.nytimes.com/2010/06/07/world/asia/07singapore.html",
+        "snippet": "Casinos have already transformed the landscape, but it’s too early to tell whether they will succeed in transforming Singapore’s image, culture and mind-set....",
+        "lead_paragraph": "Casinos have already transformed the landscape, but it’s too early to tell whether they will succeed in transforming Singapore’s image, culture and mind-set.",
+        "abstract": null,
+        "print_page": "8",
+        "blog": [],
+        "source": "The New York Times",
+        "multimedia": [
+          {
+            "width": 600,
+            "url": "images/2010/06/07/world/07SINGAPORE01_span/SINGAPORE1-articleLarge.jpg",
+            "height": 360,
+            "subtype": "xlarge",
+            "legacy": {
+              "xlargewidth": "600",
+              "xlarge": "images/2010/06/07/world/07SINGAPORE01_span/SINGAPORE1-articleLarge.jpg",
+              "xlargeheight": "360"
+            },
+            "type": "image"
+          },
+          {
+            "width": 75,
+            "url": "images/2010/06/07/world/07SINGAPORE01_span/SINGAPORE1-thumbStandard.jpg",
+            "height": 75,
+            "subtype": "thumbnail",
+            "legacy": {
+              "thumbnailheight": "75",
+              "thumbnail": "images/2010/06/07/world/07SINGAPORE01_span/SINGAPORE1-thumbStandard.jpg",
+              "thumbnailwidth": "75"
+            },
+            "type": "image"
+          }
+        ],
+        "headline": {
+          "seo": "Relaxing Its Grip on Casinos to Play for a Winning Hand",
+          "main": "Relaxing Its Grip to Play for a Winning Hand",
+          "kicker": "Singapore Journal",
+          "print_headline": "Relaxing Its Grip to Play for a Winning Hand",
+          "content_kicker": "Singapore Journal"
+        },
+        "keywords": [
+          {
+            "rank": "1",
+            "is_major": "N",
+            "value": "Singapore",
+            "name": "glocations"
+          },
+          {
+            "rank": "2",
+            "is_major": "N",
+            "value": "Casinos",
+            "name": "subject"
+          },
+          {
+            "rank": "3",
+            "is_major": "N",
+            "value": "Gambling",
+            "name": "subject"
+          },
+          {
+            "rank": "4",
+            "is_major": "N",
+            "value": "Lee Kuan Yew",
+            "name": "persons"
+          }
+        ],
+        "pub_date": "2010-06-07T00:00:00Z",
+        "document_type": "article",
+        "news_desk": "Foreign",
+        "section_name": "World",
+        "subsection_name": "Asia Pacific",
+        "byline": {
+          "contributor": "",
+          "person": [
+            {
+              "organization": "",
+              "role": "reported",
+              "firstname": "Norimitsu",
+              "rank": 1,
+              "lastname": "ONISHI"
+            }
+          ],
+          "original": "By NORIMITSU ONISHI"
+        },
+        "type_of_material": "News",
+        "_id": "5417313b38f0d851fd3a797f",
+        "word_count": "1042",
+        "slideshow_credits": null
+      },
+      {
+        "web_url": "https://www.nytimes.com/slideshow/2017/01/12/blogs/domestic-workers-migrants-singapore-xyza-bacani.html",
+        "snippet": "Xyza Bacani, a former domestic worker, has documented the plight of illegally trafficked migrants in Singapore....",
+        "lead_paragraph": "Xyza Bacani, a former domestic worker, has documented the plight of illegally trafficked migrants in Singapore.",
+        "abstract": null,
+        "print_page": null,
+        "blog": [],
+        "source": "The New York Times",
+        "multimedia": [
+          {
+            "width": 190,
+            "url": "images/2017/01/12/blogs/12-lens-xyza-first-slide-NBCO/12-lens-xyza-first-slide-NBCO-thumbWide.jpg",
+            "height": 126,
+            "subtype": "wide",
+            "legacy": {
+              "wide": "images/2017/01/12/blogs/12-lens-xyza-first-slide-NBCO/12-lens-xyza-first-slide-NBCO-thumbWide.jpg",
+              "wideheight": "126",
+              "widewidth": "190"
+            },
+            "type": "image"
+          },
+          {
+            "width": 600,
+            "url": "images/2017/01/12/blogs/12-lens-xyza-first-slide-NBCO/12-lens-xyza-first-slide-NBCO-articleLarge.jpg",
+            "height": 400,
+            "subtype": "xlarge",
+            "legacy": {
+              "xlargewidth": "600",
+              "xlarge": "images/2017/01/12/blogs/12-lens-xyza-first-slide-NBCO/12-lens-xyza-first-slide-NBCO-articleLarge.jpg",
+              "xlargeheight": "400"
+            },
+            "type": "image"
+          },
+          {
+            "width": 75,
+            "url": "images/2017/01/12/blogs/12-lens-xyza-first-slide-NBCO/12-lens-xyza-first-slide-NBCO-thumbStandard.jpg",
+            "height": 75,
+            "subtype": "thumbnail",
+            "legacy": {
+              "thumbnailheight": "75",
+              "thumbnail": "images/2017/01/12/blogs/12-lens-xyza-first-slide-NBCO/12-lens-xyza-first-slide-NBCO-thumbStandard.jpg",
+              "thumbnailwidth": "75"
+            },
+            "type": "image"
+          }
+        ],
+        "headline": {
+          "main": "Once ‘Invisible,’ She Now Brings Domestic Workers Into View"
+        },
+        "keywords": [
+          {
+            "rank": "1",
+            "is_major": "N",
+            "name": "subject",
+            "value": "Foreign Workers"
+          },
+          {
+            "rank": "2",
+            "is_major": "N",
+            "name": "subject",
+            "value": "Domestic Service"
+          },
+          {
+            "rank": "3",
+            "is_major": "N",
+            "name": "subject",
+            "value": "Human Trafficking"
+          },
+          {
+            "rank": "4",
+            "is_major": "N",
+            "name": "persons",
+            "value": "Bacani, Xyza (1987- )"
+          },
+          {
+            "rank": "5",
+            "is_major": "N",
+            "name": "glocations",
+            "value": "Singapore"
+          }
+        ],
+        "pub_date": "2017-01-12T08:05:55+0000",
+        "document_type": "multimedia",
+        "news_desk": "Blogs",
+        "section_name": "Blogs",
+        "subsection_name": null,
+        "byline": [],
+        "type_of_material": "Slideshow",
+        "_id": "587738ef7c459f2525d161e9",
+        "word_count": "16",
+        "slideshow_credits": "Xyza Bacani/Pulitzer Center"
+      }
+    ]
+  },
+  "status": "OK",
+  "copyright": "Copyright (c) 2013 The New York Times Company.  All Rights Reserved."
+}
