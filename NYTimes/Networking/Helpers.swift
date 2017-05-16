@@ -25,7 +25,7 @@ public extension Dictionary where Key: ExpressibleByStringLiteral {
             if let encodedValue = "\(keyValuePair.value)".addingPercentEncoding(withAllowedCharacters: .urlQueryParametersAllowed) {
                 return current + ["\(keyValuePair.key)=\(encodedValue)"]
             } else {
-                throw NSError(domain: Networking.domain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Couldn't encode \(keyValuePair.value)"])
+                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Couldn't encode \(keyValuePair.value)"])
             }
         }
 
@@ -106,6 +106,6 @@ extension HTTPURLResponse {
 
 extension NSError {
     convenience init(fakeRequest: Networking.FakeRequest) {
-        self.init(domain: Networking.domain, code: fakeRequest.statusCode, userInfo: [NSLocalizedDescriptionKey: HTTPURLResponse.localizedString(forStatusCode: fakeRequest.statusCode)])
+        self.init(domain: "", code: fakeRequest.statusCode, userInfo: [NSLocalizedDescriptionKey: HTTPURLResponse.localizedString(forStatusCode: fakeRequest.statusCode)])
     }
 }

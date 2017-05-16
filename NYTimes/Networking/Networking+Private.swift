@@ -26,32 +26,32 @@ extension Networking {
         }
     }
 
-    func requestJSON(requestType: RequestType, path: String, cacheName: String?, parameterType: ParameterType?, parameters: Any?, parts: [FormDataPart]?, completion: @escaping (_ result: JSONResult) -> Void) -> String {
-        return request(requestType, path: path, cacheName: cacheName, parameterType: parameterType, parameters: parameters, parts: parts, responseType: .json) { deserialized, response, error in
+    func requestJSON(requestType: RequestType, path: String, parameterType: ParameterType?, parameters: Any?, completion: @escaping (_ result: JSONResult) -> Void) -> String {
+        return request(requestType, path: path, parameterType: parameterType, parameters: parameters, responseType: .json) { deserialized, response, error in
             completion(JSONResult(body: deserialized, response: response, error: error))
         }
     }
 
-    func requestImage(path: String, cacheName: String?, completion: @escaping (_ result: ImageResult) -> Void) -> String {
-        return request(.get, path: path, cacheName: cacheName, parameterType: nil, parameters: nil, parts: nil, responseType: .image) { deserialized, response, error in
+    func requestImage(path: String, completion: @escaping (_ result: ImageResult) -> Void) -> String {
+        return request(.get, path: path, parameterType: nil, parameters: nil, responseType: .image) { deserialized, response, error in
             completion(ImageResult(body: deserialized, response: response, error: error))
         }
     }
 
-    func request(_ requestType: RequestType, path: String, cacheName: String?, parameterType: ParameterType?, parameters: Any?, parts: [FormDataPart]?, responseType: ResponseType, completion: @escaping (_ response: Any?, _ response: HTTPURLResponse, _ error: NSError?) -> Void) -> String {
+    func request(_ requestType: RequestType, path: String, parameterType: ParameterType?, parameters: Any?, responseType: ResponseType, completion: @escaping (_ response: Any?, _ response: HTTPURLResponse, _ error: NSError?) -> Void) -> String {
        
         if responseType == .json {
-            return handleJSONRequest(requestType, path: path, cacheName: cacheName, parameterType: parameterType, parameters: parameters, parts: parts, responseType: responseType, completion: completion)
+            return handleJSONRequest(requestType, path: path, parameterType: parameterType, parameters: parameters, responseType: responseType, completion: completion)
         }
         else{
-            return handleImageRequest(requestType, path: path, cacheName: cacheName, parameterType: parameterType, parameters: parameters, parts: parts, responseType: responseType, completion: completion)
+            return handleImageRequest(requestType, path: path, parameterType: parameterType, parameters: parameters, responseType: responseType, completion: completion)
         }
         
     }
 
    
-    func handleJSONRequest(_ requestType: RequestType, path: String, cacheName: String?, parameterType: ParameterType?, parameters: Any?, parts: [FormDataPart]?, responseType: ResponseType, completion: @escaping (_ response: Any?, _ response: HTTPURLResponse, _ error: NSError?) -> Void) -> String {
-        return dataRequest(requestType, path: path, cacheName: cacheName, parameterType: parameterType, parameters: parameters, parts: parts, responseType: responseType) { data, response, error in
+    func handleJSONRequest(_ requestType: RequestType, path: String, parameterType: ParameterType?, parameters: Any?, responseType: ResponseType, completion: @escaping (_ response: Any?, _ response: HTTPURLResponse, _ error: NSError?) -> Void) -> String {
+        return dataRequest(requestType, path: path, parameterType: parameterType, parameters: parameters, responseType: responseType) { data, response, error in
             var returnedError = error
             var returnedResponse: Any?
             if let data = data, data.count > 0 {
@@ -63,13 +63,12 @@ extension Networking {
                     }
                 }
             }
-            completion(returnedResponse, response, returnedError)
-
+             (DispatchQueue.main).async { completion(returnedResponse, response, returnedError) }
         }
     }
 
-    func handleImageRequest(_ requestType: RequestType, path: String, cacheName: String?, parameterType: ParameterType?, parameters: Any?, parts: [FormDataPart]?, responseType: ResponseType, completion: @escaping (_ response: Any?, _ response: HTTPURLResponse, _ error: NSError?) -> Void) -> String {
-        let object = objectFromCache(for: path, cacheName: cacheName, responseType: responseType)
+    func handleImageRequest(_ requestType: RequestType, path: String, parameterType: ParameterType?, parameters: Any?, responseType: ResponseType, completion: @escaping (_ response: Any?, _ response: HTTPURLResponse, _ error: NSError?) -> Void) -> String {
+        let object = objectFromCache(for: path, cacheName: "image", responseType: responseType)
         if let object = object {
             let requestID = UUID().uuidString
             let url = try! self.composedURL(with: path)
@@ -77,11 +76,11 @@ extension Networking {
             completion(object, response, nil)
             return requestID
         } else {
-            return dataRequest(requestType, path: path, cacheName: cacheName, parameterType: parameterType, parameters: parameters, parts: parts, responseType: responseType) { data, response, error in
+            return dataRequest(requestType, path: path, parameterType: parameterType, parameters: parameters, responseType: responseType) { data, response, error in
 
                 var returnedResponse: Any?
                 if let data = data, data.count > 0 {
-                    guard let destinationURL = try? self.destinationURL(for: path, cacheName: cacheName) else { fatalError("Couldn't get destination URL for path: \(path) and cacheName: \(String(describing: cacheName))") }
+                    guard let destinationURL = try? self.destinationURL(for: path) else { fatalError("Couldn't get destination URL for path: \(path) and cacheName: \(String(describing: ""))") }
                     _ = try? data.write(to: destinationURL, options: [.atomic])
                     switch responseType {
                     case .data:
@@ -193,13 +192,22 @@ extension Networking {
         debugPrint("================= ~ ==================")
     }
     
-    func dataRequest(_ requestType: RequestType, path: String, cacheName: String?, parameterType: ParameterType?, parameters: Any?, parts: [FormDataPart]?, responseType: ResponseType, completion: @escaping (_ response: Data?, _ response: HTTPURLResponse, _ error: NSError?) -> Void) -> String {
+    func dataRequest(_ requestType: RequestType, path: String, parameterType: ParameterType?, parameters: Any?, responseType: ResponseType, completion: @escaping (_ response: Data?, _ response: HTTPURLResponse, _ error: NSError?) -> Void) -> String {
         let requestID = UUID().uuidString
-        var request = URLRequest(url: try! composedURL(with: path), requestType: requestType, path: path, parameterType: parameterType, responseType: responseType, boundary: boundary, headerFields: headerFields)
-        
-        DispatchQueue.main.async {
-            NetworkActivityIndicator.sharedIndicator.visible = true
+//        
+        var request = URLRequest(url: try! composedURL(with: path), cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30.0)
+//        request.httpBody
+        if let headerFields = headerFields {
+            for (headerField, headerValue) in headerFields {
+                request.setValue(headerValue, forHTTPHeaderField: headerField)
+            }
         }
+        
+//        var request = URLRequest(url: try! composedURL(with: path), requestType: requestType, path: path, parameterType: parameterType, responseType: responseType, boundary: nil, headerFields: headerFields)
+        
+//        DispatchQueue.main.async {
+            NetworkActivityIndicator.sharedIndicator.visible = true
+//        }
         
         var serializingError: NSError?
         if let parameterType = parameterType {
@@ -236,33 +244,7 @@ extension Networking {
                 } catch let error as NSError {
                     serializingError = error
                 }
-            case .multipartFormData:
-                var bodyData = Data()
-                
-                if let parameters = parameters as? [String: Any] {
-                    for (key, value) in parameters {
-                        let usedValue: Any = value is NSNull ? "null" : value
-                        var body = ""
-                        body += "--\(boundary)\r\n"
-                        body += "Content-Disposition: form-data; name=\"\(key)\""
-                        body += "\r\n\r\n\(usedValue)\r\n"
-                        bodyData.append(body.data(using: .utf8)!)
-                    }
-                }
-                
-                if let parts = parts {
-                    for var part in parts {
-                        part.boundary = boundary
-                        bodyData.append(part.formData as Data)
-                    }
-                }
-                
-                bodyData.append("--\(boundary)--\r\n".data(using: .utf8)!)
-                request.httpBody = bodyData as Data
-            case .custom:
-                request.httpBody = parameters as? Data
             }
-        }
         
         if let serializingError = serializingError {
             let url = try! self.composedURL(with: path)
@@ -270,7 +252,7 @@ extension Networking {
             completion(nil, response, serializingError)
         } else {
             var connectionError: Error?
-            let semaphore = DispatchSemaphore(value: 0)
+//            let semaphore = DispatchSemaphore(value: 0)
             var returnedResponse: URLResponse?
             var returnedData: Data?
             
@@ -292,13 +274,13 @@ extension Networking {
                             }
                         }
                         
-                        connectionError = NSError(domain: Networking.domain, code: errorCode, userInfo: [NSLocalizedDescriptionKey: HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode)])
+                        connectionError = NSError(domain: "", code: errorCode, userInfo: [NSLocalizedDescriptionKey: HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode)])
                     }
                 }
                 
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     NetworkActivityIndicator.sharedIndicator.visible = false
-                }
+//                }
                 
                 self.logError(parameterType: parameterType, parameters: parameters, data: returnedData, request: request, response: returnedResponse, error: connectionError as NSError?)
 //                if let error = connectionError as NSError?, error.code == 403 || error.code == 401 {
@@ -312,6 +294,7 @@ extension Networking {
                         let response = HTTPURLResponse(url: url, statusCode: errorCode)
                         completion(returnedData, response, connectionError as NSError?)
                     }
+                
 //                }
                 
                 
@@ -320,12 +303,13 @@ extension Networking {
             
             session.taskDescription = requestID
             session.resume()
-            
+            }
             
             
         }
         
         return requestID
+            
     }
 
 }

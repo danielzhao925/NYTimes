@@ -2,9 +2,6 @@ import Foundation
 
 public extension Int {
 
-    /// Categorizes a status code.
-    ///
-    /// - Returns: The NetworkingStatusCodeType of the status code.
     var statusCodeType: Networking.StatusCodeType {
         switch self {
         case URLError.cancelled.rawValue:
@@ -13,12 +10,6 @@ public extension Int {
             return .informational
         case 200 ..< 300:
             return .successful
-        case 300 ..< 400:
-            return .redirection
-        case 400 ..< 500:
-            return .clientError
-        case 500 ..< 600:
-            return .serverError
         default:
             return .unknown
         }
@@ -26,7 +17,6 @@ public extension Int {
 }
 
 open class Networking {
-    static let domain = "nytimes.com"
 
     struct FakeRequest {
         let response: Any?
@@ -58,7 +48,7 @@ open class Networking {
     }
 
     public enum ParameterType {
-        case none, json, formURLEncoded, multipartFormData, custom(String)
+        case none, json, formURLEncoded
 
         func contentType(_ boundary: String) -> String? {
             switch self {
@@ -68,10 +58,6 @@ open class Networking {
                 return "application/json"
             case .formURLEncoded:
                 return "application/x-www-form-urlencoded"
-            case .multipartFormData:
-                return "multipart/form-data; boundary=\(boundary)"
-            case .custom(let value):
-                return value
             }
         }
     }
@@ -92,7 +78,7 @@ open class Networking {
     }
 
     public enum StatusCodeType {
-        case informational, successful, redirection, clientError, serverError, cancelled, unknown
+        case informational, successful, cancelled, unknown
     }
 
     fileprivate let baseURL: String
@@ -102,8 +88,6 @@ open class Networking {
     public var isSynchronous = false
 
     public var disableErrorLogging = false
-
-    let boundary = String(format: "danqiang.networking.%08x%08x", arc4random(), arc4random())
 
     lazy var session: URLSession = {
         var configuration = self.configurationType.sessionConfiguration
@@ -124,7 +108,7 @@ open class Networking {
     public func composedURL(with path: String) throws -> URL {
         let encodedPath = path.encodeUTF8() ?? path
         guard let url = URL(string: baseURL + encodedPath) else {
-            throw NSError(domain: Networking.domain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Couldn't create a url using baseURL: \(baseURL) and encodedPath: \(encodedPath)"])
+            throw NSError(domain: self.baseURL, code: 0, userInfo: [NSLocalizedDescriptionKey: "Couldn't create a url using baseURL: \(baseURL) and encodedPath: \(encodedPath)"])
         }
         return url
     }
@@ -140,7 +124,7 @@ open class Networking {
         }
 
         let normalizedResourcesPath = resourcesPath.replacingOccurrences(of: "/", with: "-")
-        let folderPath = Networking.domain
+        let folderPath = self.baseURL
         let finalPath = "\(folderPath)/\(normalizedResourcesPath)"
 
         if let url = URL(string: finalPath) {
@@ -157,23 +141,12 @@ open class Networking {
 
                 return destinationURL
             } else {
-                throw NSError(domain: Networking.domain, code: 9999, userInfo: [NSLocalizedDescriptionKey: "Couldn't normalize url"])
+                throw NSError(domain: "", code: 9999, userInfo: [NSLocalizedDescriptionKey: "Couldn't normalize url"])
             }
         } else {
-            throw NSError(domain: Networking.domain, code: 9999, userInfo: [NSLocalizedDescriptionKey: "Couldn't create a url using replacedPath: \(finalPath)"])
+            throw NSError(domain: "", code: 9999, userInfo: [NSLocalizedDescriptionKey: "Couldn't create a url using replacedPath: \(finalPath)"])
         }
     }
-
-//    public static func splitBaseURLAndRelativePath(for path: String) -> (baseURL: String, relativePath: String) {
-//        guard let encodedPath = path.encodeUTF8() else { fatalError("Couldn't encode path to UTF8: \(path)") }
-//        guard let url = URL(string: encodedPath) else { fatalError("Path \(encodedPath) can't be converted to url") }
-//        guard let baseURLWithDash = URL(string: "/", relativeTo: url)?.absoluteURL.absoluteString else { fatalError("Can't find absolute url of url: \(url)") }
-//        let index = baseURLWithDash.index(before: baseURLWithDash.endIndex)
-//        let baseURL = baseURLWithDash.substring(to: index)
-//        let relativePath = path.replacingOccurrences(of: baseURL, with: "")
-//
-//        return (baseURL, relativePath)
-//    }
 
     public func cancel(_ requestID: String) {
         let semaphore = DispatchSemaphore(value: 0)
@@ -218,14 +191,14 @@ open class Networking {
 
     /// Deletes the downloaded/cached files.
     public static func deleteCachedFiles() {
-        let directory = FileManager.SearchPathDirectory.cachesDirectory
-        if let cachesURL = FileManager.default.urls(for: directory, in: .userDomainMask).first {
-            let folderURL = cachesURL.appendingPathComponent(URL(string: Networking.domain)!.absoluteString)
-
-            if FileManager.default.exists(at: folderURL) {
-                _ = try? FileManager.default.remove(at: folderURL)
-            }
-        }
+//        let directory = FileManager.SearchPathDirectory.cachesDirectory
+//        if let cachesURL = FileManager.default.urls(for: directory, in: .userDomainMask).first {
+//            let folderURL = cachesURL.appendingPathComponent(URL(string: "")
+//
+//            if FileManager.default.exists(at: folderURL) {
+//                _ = try? FileManager.default.remove(at: folderURL)
+//            }
+//        }
     }
 
     /// Removes the stored credentials and cached data.

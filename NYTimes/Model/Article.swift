@@ -2,14 +2,14 @@
 
 import UIKit
 
-class Article: NSObject {
+public class Article: NSObject {
     
     var webUrl: String?
     
     var title:String?
     var media:Media?
     
-    init?(json:[String: Any]) throws{
+    public init?(json:[String: Any]) throws{
     
         self.webUrl = json["web_url"] as? String
 

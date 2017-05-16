@@ -14,20 +14,20 @@ class ArticleListViewController: UIViewController {
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var searchHistoryArray: [SearchHistory] = []
+    var searchHistories = [SearchHistory]()
     
-    var articleArray: [Article] = [Article]()
+    var articles = [Article]()
     var currentPage: Int = 0
     
-    var selectIndex:Int = 0
+    var selectIndex: Int = 0
     
-    var isSearching:Bool = false
+    var isSearching: Bool = false
     
     var searchText: String = ""
     
     lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.delegate = self
+//        searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.autocapitalizationType = .none
@@ -36,22 +36,24 @@ class ArticleListViewController: UIViewController {
         searchController.searchBar.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         return searchController
     }()
-
     
+    var searchBar: UISearchBar!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "NT Times"
-        self.searchView.addSubview(self.searchController.searchBar)
-        
-        self.searchController.searchBar.sizeToFit()
+        self.searchBar = self.searchController.searchBar
+        self.searchView.addSubview(self.searchBar)
+        self.searchBar.sizeToFit()
         definesPresentationContext = true
         
         self.searchText = "Singapore"
         self.currentPage = 0
-        loadArticleArray(searchText: self.searchText, page: self.currentPage)
+        loadArticles()
         
-        self.searchHistoryArray = getSearchHistoryList()
+        searchHistories = DatabaseManager.shareDatabaseManager.getSearchHistoryList()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -61,140 +63,65 @@ class ArticleListViewController: UIViewController {
     }
     
     // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         let articlePagesViewController = segue.destination as! ArticlePagesViewController
-        articlePagesViewController.articleArray = self.articleArray
+        articlePagesViewController.articles = self.articles
         articlePagesViewController.index = self.selectIndex
-
     }
     
-    func loadArticleArray(searchText: String, page:Int, completion: (()->())? = nil) {
+    func loadArticles() {
+        if self.currentPage == 0 {
+            self.articles.removeAll()
+        }
         ProgressHUD.show(.loading, text: "Loading")
-        WebServiceManager.shareWebServiceManager.getArticleArray(searchText, page) { (jsonResponse) in
-            
+        WebServiceManager.shareWebServiceManager.getArticles(self.currentPage, self.searchText) { (articles) in
             ProgressHUD.dismiss()
-            
-            guard let response = jsonResponse["response"] as? [String: Any],
-                let docs = response["docs"] as? [[String: Any]]
-                else{
-                    return
-            }
-            for JSON in docs {
-                do{
-                    try self.articleArray.append(Article(json: JSON)!)
-                }
-                catch{
-                    
+            if let articles = articles {
+                for article in articles {
+                    self.articles.append(article)
                 }
             }
-            DispatchQueue.main.async {
-                self.collectionView?.reloadData()
-            }
-            
-            if (completion != nil) {
-                completion!()
-            }
-            
+            self.reloadData()
         }
     }
     
-    func loadMoreData(completion: (()->())? = nil){
+    func loadMoreArticles(){
         self.currentPage += 1
-        loadArticleArray(searchText: self.searchText, page: self.currentPage, completion: completion)
+        loadArticles()
     }
     
-    func getSearchHistoryList() -> [SearchHistory] {
-    
-        var searchHistoryArray: [SearchHistory] = []
-
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-            return searchHistoryArray
-        }
-        
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
-        
-        //2
-        let fetchRequest =
-            NSFetchRequest<SearchHistory>(entityName: "SearchHistory")
-        
-        //3
-        do {
-            searchHistoryArray = try managedContext.fetch(fetchRequest)
-            //            self.collectionView?.reloadData()
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        
-        return searchHistoryArray
-
+    func reloadData(){
+        self.collectionView.reloadData()
     }
-    
-    //save search history
-    func saveSearchHistory(keyword: String) {
-        
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let entity =
-            NSEntityDescription.entity(forEntityName: "SearchHistory",
-                                       in: managedContext)!
-        
-        let searchHistory = SearchHistory(entity: entity,
-                                          insertInto: managedContext)
-        
-        searchHistory.setValue(keyword, forKeyPath: "keyword")
-        
-        do {
-            try managedContext.save()
-            searchHistoryArray.append(searchHistory)
-            //            self.collectionView?.reloadData()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
-
 }
 
 // MARK: UISearchBarDelegate
 extension ArticleListViewController: UISearchBarDelegate {
 
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        debugPrint("searchBarSearchButtonClicked")
-        self.searchText = searchBar.text!
-        isSearching = false
-        articleArray.removeAll()
-        self.saveSearchHistory(keyword: searchBar.text!)
-        self.loadArticleArray(searchText: self.searchText, page: 0)
-    }
+    public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar){
     
-}
-
-// MARK: UISearchControllerDelegate
-extension ArticleListViewController: UISearchControllerDelegate{
-    
-    @available(iOS 8.0, *)
-    public func willPresentSearchController(_ searchController: UISearchController){
         isSearching = true
-        if searchHistoryArray.count > 0 {
-            self.collectionView.reloadData()
+        searchHistories = DatabaseManager.shareDatabaseManager.getSearchHistoryList()
+        if searchHistories.count > 0 {
+            self.reloadData()
         }
     }
     
-    @available(iOS 8.0, *)
-    public func willDismissSearchController(_ searchController: UISearchController){
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
         isSearching = false
-        self.collectionView.reloadData()
     }
     
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let searchText = searchBar.text {
+            self.searchText = searchText
+            isSearching = false
+            articles.removeAll()
+            DatabaseManager.shareDatabaseManager.saveSearchHistory(keyword:  self.searchText)
+            self.currentPage = 0
+            
+            self.loadArticles()
+        }
+    }
 }
 
 // MARK: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
@@ -204,13 +131,12 @@ extension ArticleListViewController: UICollectionViewDelegate, UICollectionViewD
         return 1
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isSearching {
-            return self.searchHistoryArray.count
+            return self.searchHistories.count
         }
-        if self.articleArray.count > 0 {
-            return self.articleArray.count + 1
+        if self.articles.count > 0 {
+            return self.articles.count + 1
         }
         return 0
     }
@@ -220,19 +146,19 @@ extension ArticleListViewController: UICollectionViewDelegate, UICollectionViewD
         let searchKeywordCell = collectionView.dequeueReusableCell(withReuseIdentifier: searchKeywordCellreuseIdentifier, for: indexPath) as! SearchKeywordCell
         
         if isSearching {
-            let searchHistory = searchHistoryArray[indexPath.row]
+            let searchHistory = searchHistories[indexPath.row]
             searchKeywordCell.keywordLabel.text = searchHistory.keyword
             return searchKeywordCell
         }
         else{
             
-            if indexPath.row == articleArray.count {
-                self.loadMoreData()
+            if indexPath.row == articles.count {
+                self.loadMoreArticles()
                 let articleLoadMoreCell = collectionView.dequeueReusableCell(withReuseIdentifier: articleLoadMorereuseIdentifier, for: indexPath)
                 return articleLoadMoreCell
             }
             
-            let article = articleArray[indexPath.row]
+            let article = articles[indexPath.row]
 
             if article.media != nil {
                 let articleMiddleImageCell = collectionView.dequeueReusableCell(withReuseIdentifier: articleMiddleImageCellreuseIdentifier, for: indexPath) as! ArticleMiddleImageCell
@@ -253,16 +179,19 @@ extension ArticleListViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
         if isSearching {
-            let searchHistory = searchHistoryArray[indexPath.row]
-            isSearching = false
-            self.loadArticleArray(searchText: searchHistory.keyword!, page: 0)
-            return
+            let searchHistory = searchHistories[indexPath.row]
+            if let keyword = searchHistory.keyword {
+                isSearching = false
+                self.currentPage = 0
+                self.searchText = keyword
+                self.searchBar.text = self.searchText
+                self.searchBar.resignFirstResponder()
+                self.loadArticles()
+                return
+            }
         }
-        
         self.selectIndex = indexPath.row
-        
         self.performSegue(withIdentifier: "ArticleDetails", sender: nil)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -272,11 +201,11 @@ extension ArticleListViewController: UICollectionViewDelegate, UICollectionViewD
         }
         else{
             //load more cell
-            if indexPath.row == self.articleArray.count {
+            if indexPath.row == self.articles.count {
                 return CGSize(width: collectionView.bounds.width, height: 50);
             }
             //article cell
-            let article = articleArray[indexPath.row]
+            let article = articles[indexPath.row]
             var height:CGFloat = 0
             if article.media != nil {
                 
@@ -290,11 +219,9 @@ extension ArticleListViewController: UICollectionViewDelegate, UICollectionViewD
             height += 24
             return CGSize(width: collectionView.bounds.width, height: height);
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat{
         return 2.0
     }
-
 }

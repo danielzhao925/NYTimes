@@ -47,12 +47,6 @@ class NetworkingTests: XCTestCase {
         XCTAssertEqual(199.statusCodeType, Networking.StatusCodeType.informational)
         XCTAssertEqual(200.statusCodeType, Networking.StatusCodeType.successful)
         XCTAssertEqual(299.statusCodeType, Networking.StatusCodeType.successful)
-        XCTAssertEqual(300.statusCodeType, Networking.StatusCodeType.redirection)
-        XCTAssertEqual(399.statusCodeType, Networking.StatusCodeType.redirection)
-        XCTAssertEqual(400.statusCodeType, Networking.StatusCodeType.clientError)
-        XCTAssertEqual(499.statusCodeType, Networking.StatusCodeType.clientError)
-        XCTAssertEqual(500.statusCodeType, Networking.StatusCodeType.serverError)
-        XCTAssertEqual(599.statusCodeType, Networking.StatusCodeType.serverError)
         XCTAssertEqual(600.statusCodeType, Networking.StatusCodeType.unknown)
     }
 

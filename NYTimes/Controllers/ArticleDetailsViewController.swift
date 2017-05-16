@@ -5,9 +5,9 @@ import WebKit
 
 class ArticleDetailsViewController: UIViewController {
 
-    var webView: WKWebView!
+    fileprivate var webView: WKWebView!
     
-    public var article: Article!
+    var article: Article!
     
     var pageIndex: Int = 0
     
@@ -25,16 +25,13 @@ class ArticleDetailsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         webView.load(URLRequest(url: URL(string: article.webUrl!)!))
-
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

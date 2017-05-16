@@ -4,7 +4,7 @@ import UIKit
 
 class ArticlePagesViewController: UIPageViewController {
 
-    var articleArray: [Article] = [Article]()
+    var articles = [Article]()
     var index:Int = 0
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class ArticlePagesViewController: UIPageViewController {
         // Create a new view controller and pass suitable data.
         let pageContentViewController = self.storyboard?.instantiateViewController(withIdentifier: "ArticleDetailsViewController") as! ArticleDetailsViewController
         pageContentViewController.pageIndex = index
-        pageContentViewController.article = articleArray[index]
+        pageContentViewController.article = articles[index]
         self.title = pageContentViewController.article.title
         return pageContentViewController
     }
@@ -56,14 +56,12 @@ extension ArticlePagesViewController: UIPageViewControllerDataSource{
         
         var index = pageContent.pageIndex
         
-        if ((index == 0) || (index == NSNotFound))
-        {
+        if ((index == 0) || (index == NSNotFound)){
             return nil
         }
         
         index -= 1
         return getViewControllerAtIndex(index: index)
-
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?{
@@ -72,13 +70,11 @@ extension ArticlePagesViewController: UIPageViewControllerDataSource{
         
         var index = pageContent.pageIndex
         
-        if (index == NSNotFound)
-        {
+        if (index == NSNotFound){
             return nil
         }
         index += 1
-        if (index == articleArray.count)
-        {
+        if (index == articles.count){
             return nil;
         }
         return getViewControllerAtIndex(index: index)
