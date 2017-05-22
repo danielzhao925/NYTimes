@@ -41,6 +41,8 @@ extension Networking {
     func request(_ requestType: RequestType, path: String, parameterType: ParameterType?, parameters: Any?, responseType: ResponseType, completion: @escaping (_ response: Any?, _ response: HTTPURLResponse, _ error: NSError?) -> Void) -> String {
        
         if responseType == .json {
+            self.headerFields = ["Content-Type":"application/json; charset=utf-8",
+                                 "Accept":"application/json"]
             return handleJSONRequest(requestType, path: path, parameterType: parameterType, parameters: parameters, responseType: responseType, completion: completion)
         }
         else{

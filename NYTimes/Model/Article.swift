@@ -56,3 +56,26 @@ class Media: NSObject {
         self.type = type
     }
 }
+
+class ArticleResponse: NSObject {
+
+    var articles: [Article]?
+    
+    init?(json: [String: Any]) throws {
+        guard let response = json["response"] as? [String: Any],
+            let docs = response["docs"] as? [[String: Any]]
+            else{
+                return
+        }
+        articles = [Article]()
+        for JSON in docs {
+            do{
+                try articles!.append(Article(json: JSON)!)
+            }
+            catch{
+                
+            }
+        }
+    }
+    
+}

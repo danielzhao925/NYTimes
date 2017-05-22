@@ -4,7 +4,7 @@ import UIKit
 
 class ArticlePagesViewController: UIPageViewController {
 
-    var articles = [Article]()
+    var articles = [Article!]()
     var index:Int = 0
     
     override func viewDidLoad() {
@@ -31,7 +31,7 @@ class ArticlePagesViewController: UIPageViewController {
         let pageContentViewController = self.storyboard?.instantiateViewController(withIdentifier: "ArticleDetailsViewController") as! ArticleDetailsViewController
         pageContentViewController.pageIndex = index
         pageContentViewController.article = articles[index]
-        self.title = pageContentViewController.article.title
+        self.title = pageContentViewController.article?.title
         return pageContentViewController
     }
 

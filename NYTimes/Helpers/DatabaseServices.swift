@@ -46,4 +46,14 @@ class DatabaseServices: NSObject {
         }
         return list
     }
+    
+    func deleteAllData<T>(_ type: T.Type){
+        let delAllReq = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName:  String(describing: type)))
+        do {
+            try managedContext.execute(delAllReq)
+        }
+        catch {
+            print(error)
+        }
+    }
 }

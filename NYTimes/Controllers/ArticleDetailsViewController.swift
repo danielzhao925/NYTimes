@@ -5,27 +5,33 @@ import WebKit
 
 class ArticleDetailsViewController: UIViewController {
 
-    fileprivate var webView: WKWebView!
+    var webView: WKWebView!
     
-    var article: Article!
+    var article: Article?
     
     var pageIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = article.webUrl
+        if let article = article, let webUrl = article.webUrl {
+            self.title = webUrl
+        }
+        
         webView = WKWebView(frame: self.view.frame)
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        webView.uiDelegate = self
-        webView.navigationDelegate = self;
-        webView.load(URLRequest(url: URL(string: article.webUrl!)!))
+//        webView.uiDelegate = self
+        webView.navigationDelegate = self
         self.view.addSubview(webView)
-        
+        if let article = article,  let webUrl = article.webUrl, let url = URL(string: webUrl)  {
+            webView.load(URLRequest(url: url))
+        }
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        webView.load(URLRequest(url: URL(string: article.webUrl!)!))
+        if let article = article,  let webUrl = article.webUrl, let url = URL(string: webUrl)  {
+            webView.load(URLRequest(url: url))
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,11 +52,10 @@ class ArticleDetailsViewController: UIViewController {
 
 }
 
-extension ArticleDetailsViewController:WKUIDelegate, WKNavigationDelegate{
+extension ArticleDetailsViewController:WKNavigationDelegate{
     
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!){
         ProgressHUD.show(.loading,text: "Loading")
-
     }
     
 //    @available(iOS 8.0, *)
@@ -67,5 +72,4 @@ extension ArticleDetailsViewController:WKUIDelegate, WKNavigationDelegate{
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error){
         ProgressHUD.dismiss()
     }
-    
 }

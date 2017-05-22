@@ -13,7 +13,7 @@ public extension ProgressHUD {
     public class func show(_ type: HUDType, text: String, time: TimeInterval? = nil, completion: HUDCompletedBlock? = nil) {
         dismiss()
         instance.registerDeviceOrientationNotification()
-        var isNone: Bool = false
+        let isNone: Bool = false
         let window = UIWindow()
         window.backgroundColor = UIColor.clear
         let mainView = UIView()

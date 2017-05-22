@@ -31,4 +31,8 @@ class DatabaseManager: NSObject {
         searchHistory.setValue(keyword, forKeyPath: #keyPath(SearchHistory.keyword))
         databaseServices.save()
     }
+    
+    func deleteAllSearchHistory() {
+        self.databaseServices.deleteAllData(SearchHistory.self)
+    }
 }

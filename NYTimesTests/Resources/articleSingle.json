@@ -1,0 +1,109 @@
+{
+"web_url": "https://www.nytimes.com/2017/04/04/world/asia/here-lies-a-graveyard-where-east-and-west-came-together.html",
+"snippet": "Bukit Brown, one of the world’s largest Chinese cemeteries, is at the center of a preservation effort in modernization-mad Singapore....",
+"lead_paragraph": "Bukit Brown, one of the world’s largest Chinese cemeteries, is at the center of a preservation effort in modernization-mad Singapore.",
+"abstract": null,
+"print_page": 7,
+"blog": [],
+"source": "The New York Times",
+"multimedia": [
+  {
+    "width": 75,
+    "url": "images/2017/04/01/world/03singapore-1/03singapore-1-thumbStandard.jpg",
+    "rank": 0,
+    "height": 75,
+    "subtype": "thumbnail",
+    "legacy": {
+      "thumbnailheight": 75,
+      "thumbnail": "images/2017/04/01/world/03singapore-1/03singapore-1-thumbStandard.jpg",
+      "thumbnailwidth": 75
+    },
+    "type": "image"
+  },
+  {
+    "width": 600,
+    "url": "images/2017/04/01/world/03singapore-1/03singapore-1-articleLarge.jpg",
+    "rank": 0,
+    "height": 400,
+    "subtype": "xlarge",
+    "legacy": {
+      "xlargewidth": 600,
+      "xlarge": "images/2017/04/01/world/03singapore-1/03singapore-1-articleLarge.jpg",
+      "xlargeheight": 400
+    },
+    "type": "image"
+  },
+  {
+    "width": 190,
+    "url": "images/2017/04/01/world/03singapore-1/03singapore-1-thumbWide.jpg",
+    "rank": 0,
+    "height": 126,
+    "subtype": "wide",
+    "legacy": {
+      "wide": "images/2017/04/01/world/03singapore-1/03singapore-1-thumbWide.jpg",
+      "widewidth": 190,
+      "wideheight": 126
+    },
+    "type": "image"
+  }
+],
+"headline": {
+  "main": "Here Lies a Graveyard Where ‘East and West Came Together’",
+  "kicker": "Singapore Journal",
+  "print_headline": "Here Lies a Graveyard Where East and West Met",
+  "content_kicker": "Singapore Journal"
+},
+"keywords": [
+  {
+    "isMajor": "N",
+    "rank": 1,
+    "name": "subject",
+    "value": "Cemeteries"
+  },
+  {
+    "isMajor": "N",
+    "rank": 2,
+    "name": "subject",
+    "value": "Tombs and Tombstones"
+  },
+  {
+    "isMajor": "N",
+    "rank": 3,
+    "name": "subject",
+    "value": "Land Use Policies"
+  },
+  {
+    "isMajor": "N",
+    "rank": 4,
+    "name": "subject",
+    "value": "Historic Buildings and Sites"
+  },
+  {
+    "isMajor": "N",
+    "rank": 5,
+    "name": "glocations",
+    "value": "Singapore"
+  }
+],
+"pub_date": "2017-04-04T14:55:49+0000",
+"document_type": "article",
+"news_desk": "Foreign",
+"section_name": "World",
+"subsection_name": "Asia Pacific",
+"byline": {
+  "person": [
+    {
+      "organization": "",
+      "role": "reported",
+      "rank": 1,
+      "firstname": "Ian",
+      "lastname": "JOHNSON"
+    }
+  ],
+  "original": "By IAN JOHNSON"
+},
+"type_of_material": "News",
+"_id": "58e3b4007c459f24986d849e",
+"word_count": 1277,
+"slideshow_credits": null
+}

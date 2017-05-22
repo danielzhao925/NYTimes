@@ -56,6 +56,10 @@ class ArticleListViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        debugPrint("view will appear")
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -70,6 +74,7 @@ class ArticleListViewController: UIViewController {
     }
     
     func loadArticles() {
+        debugPrint("load articles...")
         if self.currentPage == 0 {
             self.articles.removeAll()
         }

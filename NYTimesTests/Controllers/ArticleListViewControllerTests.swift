@@ -12,27 +12,30 @@ import CoreData
 
 class ArticleListViewControllerMock: ArticleListViewController {
     var loadExpectation: XCTestExpectation!
-    
+    var segueIdentifier: String?
     override func reloadData() {
         super.reloadData()
         loadExpectation.fulfill()
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        segueIdentifier = segue.identifier
+        super.prepare(for: segue, sender: sender)
+    }
 }
 
-
-class ArticleListViewControllerTests: XCTestCase {
+class ArticleListViewControllerTests: BaseViewControllerTests {
     
     var navigationController:UINavigationController!
     var viewController: ArticleListViewController!
-
+    
     override func setUp() {
         super.setUp()
-        
+        sleep(8)
         navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         
-        viewController = navigationController.topViewController as! ArticleListViewController!
-        XCTAssertNotNil(viewController)
-        let _ = viewController.view
+        self.viewController = self.navigationController.topViewController as! ArticleListViewController!
+        XCTAssertNotNil(self.viewController)
+        let _ = self.viewController.view
     }
     
     override func tearDown() {
@@ -41,31 +44,6 @@ class ArticleListViewControllerTests: XCTestCase {
         viewController = nil
         super.tearDown()
     }
-    
-//    func testData(){
-//    
-//        do{
-//            let json = try! JSON.from("testData.json", bundle: Bundle(for: JSONTests.self)) as? [String : Any]  ?? [String : Any]()
-//            guard let response = json["response"] as? [String: Any],
-//                let docs = response["docs"] as? [[String: Any]]
-//                else{
-//                    return
-//            }
-//            for JSON in docs {
-//                do{
-//                    try self.articleArray.append(Article(json: JSON)!)
-//                }
-//                catch{
-//                    
-//                }
-//            }
-//        }catch{
-//            
-//        }
-//
-//        
-//    }
-//
     
     func testCollectionViewIsNotNil() {
         XCTAssertNotNil(viewController.collectionView)
@@ -76,7 +54,6 @@ class ArticleListViewControllerTests: XCTestCase {
     }
     
     func testConformsToCollectionViewDataSource() {
-        
         XCTAssert(viewController.conforms(to: UICollectionViewDataSource.self))
         XCTAssertTrue(viewController.responds(to: #selector(viewController.numberOfSections(in:))))
         XCTAssertTrue(viewController.responds(to: #selector(viewController.collectionView(_:numberOfItemsInSection:))))
@@ -89,7 +66,6 @@ class ArticleListViewControllerTests: XCTestCase {
     }
     
     func testConformsToCollectionViewDelegate() {
-        
         XCTAssert(viewController.conforms(to: UICollectionViewDelegate.self))
         XCTAssertTrue(viewController.responds(to: #selector(viewController.collectionView(_:didSelectItemAt:))))
     }
@@ -101,57 +77,42 @@ class ArticleListViewControllerTests: XCTestCase {
     }
     
     func testConformsToSearchBarDelegate() {
-        
         XCTAssert(viewController.conforms(to: UISearchBarDelegate.self))
         XCTAssertTrue(viewController.responds(to: #selector(viewController.searchBarTextDidBeginEditing(_:))))
         XCTAssertTrue(viewController.responds(to: #selector(viewController.searchBarTextDidEndEditing(_:))))
         XCTAssertTrue(viewController.responds(to: #selector(viewController.searchBarSearchButtonClicked(_:))))
     }
     
-    func testAfterViewDidLoad()
-    {
+    func testAfterViewDidLoad(){
         let controller = ArticleListViewControllerMock()
         controller.searchView = viewController.searchView
-        controller.loadExpectation = expectation(description: "reload data")
-        controller.collectionView = self.viewController.collectionView
-        XCTAssertNotNil(controller.collectionView)
-        controller.viewDidLoad()
-        waitForExpectations(timeout: 10.0, handler: nil)
-        XCTAssertNotNil(controller.articles)
-        XCTAssertGreaterThan(controller.articles.count, 0)
-    }
-    
-    func testCollectionViewAfterViewDidLoad(){
-        let controller = ArticleListViewControllerMock()
-        controller.searchView = viewController.searchView
-        controller.loadExpectation = expectation(description: "reload data")
         controller.collectionView = self.viewController.collectionView
         controller.collectionView.delegate = controller
         controller.collectionView.dataSource = controller
+        controller.loadExpectation = expectation(description: "reload data")
+        controller.loadArticles()
+        waitForExpectations(timeout: 30.0, handler: nil)
         
-        XCTAssertNotNil(controller.collectionView)
-        controller.viewDidLoad()
+        XCTAssertNotNil(controller.articles)
+        XCTAssertGreaterThan(controller.articles.count, 0)
         
-        waitForExpectations(timeout: 10.0, handler: nil)
-        XCTAssertEqual(controller.collectionView(controller.collectionView, numberOfItemsInSection:0), controller.articles.count + 1)
-        let collectionViewCell = controller.collectionView(controller.collectionView, cellForItemAt:IndexPath(row: 0, section: 0))
-        XCTAssertNotNil(collectionViewCell)
+//        XCTAssertEqual(controller.collectionView(controller.collectionView, numberOfItemsInSection:0), controller.articles.count + 1)
+//        let collectionViewCell = controller.collectionView(controller.collectionView, cellForItemAt:IndexPath(row: 0, section: 0))
+//        XCTAssertNotNil(collectionViewCell)
     }
 
     func testloadMoreArticles(){
+        
         let controller = ArticleListViewControllerMock()
         controller.searchView = viewController.searchView
-        controller.loadExpectation = expectation(description: "reload data")
         controller.collectionView = self.viewController.collectionView
         controller.collectionView.delegate = controller
         controller.collectionView.dataSource = controller
+        controller.loadExpectation = expectation(description: "reload data")
+        controller.loadArticles()
+        waitForExpectations(timeout: 30.0, handler: nil)
         
-        XCTAssertNotNil(controller.collectionView)
-        controller.viewDidLoad()
-        waitForExpectations(timeout: 10.0, handler: nil)
-
         let count = controller.articles.count
-        
         controller.loadExpectation = expectation(description: "reload more data")
         controller.loadMoreArticles()
         waitForExpectations(timeout: 10.0, handler: nil)
@@ -163,54 +124,77 @@ class ArticleListViewControllerTests: XCTestCase {
     }
     
     func testIfSearchHistoryIsEmpty() {
-        viewController.isSearching = true
-        XCTAssertEqual(viewController.searchHistories.count, 0)
-        viewController.collectionView.reloadData()
+        let controller = ArticleListViewControllerMock()
+        controller.searchView = viewController.searchView
+        controller.collectionView = self.viewController.collectionView
+        controller.collectionView.delegate = controller
+        controller.collectionView.dataSource = controller
+        
+        controller.searchHistories.removeAll()
+        controller.loadExpectation = expectation(description: "reload search history")
+        controller.reloadData()
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertEqual(controller.collectionView(controller.collectionView, numberOfItemsInSection:0), 0)
     }
     
-    func testIfSearchHistoryIsNotEmpty() {
+    func testIfSearchHistoriesIsNotEmpty() {
+        let controller = ArticleListViewControllerMock()
+        controller.searchView = viewController.searchView
+        controller.searchBar = viewController.searchBar
+
+        controller.collectionView = self.viewController.collectionView
+        controller.collectionView.delegate = controller
+        controller.collectionView.dataSource = controller
+        controller.searchText = self.viewController.searchText
+        DatabaseManager.shareDatabaseManager.deleteAllSearchHistory()
+        DatabaseManager.shareDatabaseManager.saveSearchHistory(keyword:  "Japan")
+        DatabaseManager.shareDatabaseManager.saveSearchHistory(keyword:  "Singapore")
         
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
+        controller.searchHistories = DatabaseManager.shareDatabaseManager.getSearchHistoryList()
+        controller.isSearching = true
+        let searchHistory = viewController.searchHistories[0]
+        controller.loadExpectation = expectation(description: "searching article")
+        controller.collectionView(controller.collectionView, didSelectItemAt: IndexPath(row: 0, section: 0))
+        waitForExpectations(timeout: 10.0, handler: nil)
+        XCTAssertEqual(controller.searchText, searchHistory.keyword)
+        XCTAssertEqual(controller.articles.count, 10)
+    }
+    
+    func testSelectingArticleCellPushesArticleDetailsView(){
+        let controller = ArticleListViewControllerMock()
+        controller.selectIndex = 0
+        let articlePagesViewController = ArticlePagesViewController()
+        let segue = UIStoryboardSegue(identifier: "ArticleDetails",
+                                      source: controller,
+                                      destination: articlePagesViewController)
+        XCTAssertEqual(navigationController.viewControllers.count, 1)
+        controller.isSearching = false
+        controller.prepare(for: segue, sender: nil)
+
+        if let identifier = controller.segueIdentifier {
+            XCTAssertEqual("ArticleDetails", identifier)
         }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let entity =
-            NSEntityDescription.entity(forEntityName: "SearchHistory",
-                                       in: managedContext)!
-        let searchHistory1 = SearchHistory(entity: entity,
-                                          insertInto: managedContext)
-        searchHistory1.setValue("Japan", forKeyPath: "keyword")
-        
-        let searchHistory2 = SearchHistory(entity: entity,
-                                          insertInto: managedContext)
-        searchHistory2.setValue("Singapore", forKeyPath: "keyword")
-
-        viewController.searchHistories = [searchHistory1,searchHistory2]
-        viewController.isSearching = true
-        viewController.collectionView.reloadData()
-        viewController.collectionView(viewController.collectionView, didSelectItemAt: IndexPath(row: 0, section: 0))
-        
-        let testExpectation = expectation(description: "Load Article base on searching")
-        
-        XCTAssertEqual(viewController.searchText, "Japan")
-//        viewController.loadArticles() {
-//            testExpectation.fulfill()
-//        }
-        waitForExpectations(timeout: 15.0, handler: nil)
-        XCTAssertEqual(viewController.articles.count, 10)
-
+        else {
+            XCTFail("Segue should be performed")
+        }
     }
     
-//    func testSelectingArticleCellPushesArticleDetailsView(){
-//        viewController.view.layoutSubviews()
-//        XCTAssertEqual(navigationController.viewControllers.count, 1)
-//        viewController.isSearching = false
-//        viewController.collectionView(viewController.collectionView, didSelectItemAt: IndexPath(row: 0, section: 0))
-//        navigationController.updateFocusIfNeeded()
-//        XCTAssertEqual(navigationController.viewControllers.count, 2)
-//        XCTAssertEqual(String(describing: type(of: navigationController.topViewController)),String(describing: type(of: ArticlePagesViewController.self)))
-//    }
+    func testArgumentToPassIsPassedOnSegue(){
+        let controller = ArticleListViewControllerMock()
+        controller.selectIndex = 0
+        let articlePagesViewController = ArticlePagesViewController()
+        let segue = UIStoryboardSegue(identifier: "ArticleDetails",
+                                      source: controller,
+                                      destination: articlePagesViewController)
+        controller.prepare(for: segue, sender: nil)
 
+        if let identifier = controller.segueIdentifier {
+            XCTAssertEqual("ArticleDetails", identifier)
+        }
+        else {
+            XCTFail("Segue should be performed")
+        }
+        XCTAssertEqual(articlePagesViewController.index, 0)
+        XCTAssertNotNil(articlePagesViewController.articles)
+    }
 }

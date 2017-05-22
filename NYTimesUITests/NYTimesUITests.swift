@@ -27,19 +27,4 @@ class NYTimesUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testCollectionView() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let collectionViewsQuery = XCUIApplication().collectionViews
-        collectionViewsQuery.staticTexts["Here Lies a Graveyard Where ‘East and West Came Together’"].swipeDown()
-        collectionViewsQuery.children(matching: .cell).element(boundBy: 6).otherElements.containing(.staticText, identifier:"Singapore").element.swipeLeft()
-        
-    }
-    
-//    func testSearchBar() {
-//        XCUIApplication().buttons["Cancel"].tap()
-//        XCUIApplication().collectionViews.staticTexts["g"].tap()
-//    }
-    
 }

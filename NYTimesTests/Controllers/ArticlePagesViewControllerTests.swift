@@ -9,57 +9,43 @@
 import XCTest
 @testable import NYTimes
 
-class ArticlePagesViewControllerTests: XCTestCase {
+class ArticlePagesViewControllerMock: ArticlePagesViewController {
+    
+}
+
+class ArticlePagesViewControllerTests: BaseViewControllerTests {
     
     var viewController: ArticlePagesViewController!
-    var articleArray:[Article]! = [Article]()
     
     override func setUp() {
         super.setUp()
-        
         viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ArticlePagesViewController") as! ArticlePagesViewController
-        
-        do{
-            let json = try! JSON.from("testData.json", bundle: Bundle(for: JSONTests.self)) as? [String : Any]  ?? [String : Any]()
-            guard let response = json["response"] as? [String: Any],
-                let docs = response["docs"] as? [[String: Any]]
-                else{
-                    return
-            }
-            for JSON in docs {
-                do{
-                    try self.articleArray.append(Article(json: JSON)!)
-                }
-                catch{
-                    
-                }
-            }
-        }catch{
-        
-        }
-        
+        XCTAssertNotNil(viewController)
+        let _ = viewController.view
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         viewController = nil
-        articleArray = nil
         super.tearDown()
     }
     
-    func testCanInstantiateViewController() {
-        XCTAssertNotNil(viewController)
-    }
-    
     func testConformsToPageViewControllerDataSource() {
-        
+ 
         XCTAssert(viewController.conforms(to: UIPageViewControllerDataSource.self))
         XCTAssertTrue(viewController.responds(to: #selector(viewController.pageViewController(_:viewControllerBefore:))))
         XCTAssertTrue(viewController.responds(to: #selector(viewController.pageViewController(_:viewControllerAfter:))))
     }
     
-    func testViewDidLoad() {
+    func testPageScrolling() {
         
+//        let articles = self.articles()
+//        XCTAssertNotNil(articles)
+//        XCTAssertEqual(articles?.count, 10)
+////        viewController.didm
+//        viewController.articles = articles
+//        viewController.index = 3
+//        viewController.pageViewController(<#T##pageViewController: UIPageViewController##UIPageViewController#>, viewControllerAfter: <#T##UIViewController#>)
 //        XCTAssertNotNil(articles)
 //        viewController.articles = articles
 //        viewController.setViewControllers([viewController.getViewControllerAtIndex(index: 0)] as [UIViewController], direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
@@ -67,6 +53,5 @@ class ArticlePagesViewControllerTests: XCTestCase {
 //        XCTAssertEqual(viewController.index, 0)
 
     }
-
     
 }
